@@ -3216,7 +3216,9 @@ __webpack_require__.r(__webpack_exports__);
           textColor: "#fff",
           backgroundColor: "#383838"
         });
-        parent.$mount('#BackendHeader');
+        setInterval(function () {
+          window.location.reload();
+        }, 1000);
       });
     }
   }
@@ -27242,7 +27244,7 @@ var render = function() {
                       _c("i", { staticClass: "icon-feather-bell" }),
                       _vm._v(" Notificaciones\n                "),
                       _c("span", { staticClass: "nav-tag" }, [
-                        _vm._v(_vm._s(_vm.totalsms))
+                        _vm._v(_vm._s(_vm.totalnotis))
                       ])
                     ]
                   )
@@ -28384,22 +28386,27 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm.objetodash.objetonoti.totalnostis > 0
-        ? _c("div", { staticClass: "add-note-button" }, [
-            _c(
-              "a",
-              {
-                staticClass:
-                  "popup-with-zoom-anim button full-width button-sliding-icon",
-                attrs: { href: _vm.route("chat.index") }
-              },
-              [
-                _vm._v("Ver todos "),
-                _c("i", {
-                  staticClass: "icon-material-outline-arrow-right-alt"
-                })
-              ]
-            )
-          ])
+        ? _c(
+            "div",
+            { staticClass: "add-note-button" },
+            [
+              _c(
+                "inertia-link",
+                {
+                  staticClass:
+                    "popup-with-zoom-anim button full-width button-sliding-icon",
+                  attrs: { href: _vm.route("notificaciones.index") }
+                },
+                [
+                  _vm._v("Ver todos "),
+                  _c("i", {
+                    staticClass: "icon-material-outline-arrow-right-alt"
+                  })
+                ]
+              )
+            ],
+            1
+          )
         : _vm._e()
     ])
   ])

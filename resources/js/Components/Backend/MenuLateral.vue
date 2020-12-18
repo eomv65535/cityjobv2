@@ -31,7 +31,7 @@
               <li :class="{ active: cualactivo == 3 }">
                 <a :href="route('notificaciones.index')"
                   ><i class="icon-feather-bell"></i> Notificaciones
-                  <span class="nav-tag">{{totalsms}}</span></a
+                  <span class="nav-tag">{{totalnotis}}</span></a
                 >
               </li>
               <li :class="{ active: cualactivo == 4 }">

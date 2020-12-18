@@ -53,7 +53,7 @@ import GraficoVisitas from "../Components/Dashboard/GraficoVisitas.vue";
 import IndicadoresTope from "../Components/Dashboard/IndicadoresTope.vue";
 import NotificacionesIni from "../Components/Dashboard/NotificacionesIni.vue";
 import PedidosIni from "../Components/Dashboard/PedidosIni.vue";
- 
+
 export default {
   components: {
     BackendHeader,
@@ -80,5 +80,6 @@ export default {
       cual: 1,
     };
   },
+  
 };
 </script>

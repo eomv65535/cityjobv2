@@ -23,7 +23,7 @@
             <div class="buttons-to-right">
               <a
                 href="#"
-                @click="leido(notificacion,notificacion.id)"
+                @click="leido(notificacion, notificacion.id)"
                 class="button ripple-effect ico"
                 title="Marca como leído"
                 data-tippy-placement="left"
@@ -34,11 +34,11 @@
         </ul>
       </div>
       <div class="add-note-button" v-if="objetodash.objetonoti.totalnostis > 0">
-        <a
-          :href="route('chat.index')"
+        <inertia-link
+          :href="route('notificaciones.index')"
           class="popup-with-zoom-anim button full-width button-sliding-icon"
           >Ver todos <i class="icon-material-outline-arrow-right-alt"></i
-        ></a>
+        ></inertia-link>
       </div>
     </div>
   </div>
@@ -54,8 +54,7 @@ export default {
   },
   watch: {},
   methods: {
-    leido(notificacion,indice) {
-
+    leido(notificacion, indice) {
       axios.put("/notileido/" + indice).then((response) => {
         this.objetodash.objetonoti.totalnostis--;
         this.objetodash.objetonoti.notificaciones.splice(
@@ -71,7 +70,9 @@ export default {
           textColor: "#fff",
           backgroundColor: "#383838",
         });
-        parent.$mount('#BackendHeader');
+        setInterval(() => {
+          window.location.reload();
+        }, 1000);
       });
     },
   },
