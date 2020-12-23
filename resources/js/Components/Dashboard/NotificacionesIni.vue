@@ -70,9 +70,7 @@ export default {
           textColor: "#fff",
           backgroundColor: "#383838",
         });
-        setInterval(() => {
-          window.location.reload();
-        }, 1000);
+        
       });
     },
   },

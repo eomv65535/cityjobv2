@@ -42,9 +42,7 @@
 </template>
 
 <script>
-import FooterVue from "../Components/Backend/Footer.vue";
 import FooterInterno from "../Components/Backend/FooterInterno.vue";
-import FooterInternoVue from "../Components/Backend/FooterInterno.vue";
 import BackendHeader from "../Components/Backend/Header.vue";
 import MenuLateral from "../Components/Backend/MenuLateral.vue";
 import Modalog from "../Components/Backend/Modalog.vue";
@@ -58,7 +56,7 @@ export default {
   components: {
     BackendHeader,
     Modalog,
-    FooterVue,
+
     FooterInterno,
     MenuLateral,
     IndicadoresTope,
@@ -80,6 +78,6 @@ export default {
       cual: 1,
     };
   },
-  
+
 };
 </script>

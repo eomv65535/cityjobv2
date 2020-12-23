@@ -3,25 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chat;
+use DateTime;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ChatController extends Controller
 {
     public function index() {
-        $enviadores=Chat::join("users",'users.id','chats.quien_envia')
+        $usuarios=Chat::join("users",'users.id','=','chats.quien_envia')
+        ->select('chats.quien_envia as usuario','users.name as nombre' ,'users.profile_photo_path as foto','users.enlinea as linea')
         ->where('chats.quien_recibe','=',auth()->id())
-        ->groupBy('chats.quien_envia')
-        ->orderByDesc('chats.created_at')->get();
-        $primer_enviador=$enviadores[0]->user->id;
+        ->groupBy('chats.quien_envia','users.name','users.profile_photo_path','users.enlinea')
+        ->orderByDesc('chats.created_at')
+        ->orderBy('chats.quien_envia')->get();
+
+        $loschats=array();
+
+        foreach($usuarios as $uno)
+        {
+            $sms=Chat::select('chats.id','chats.created_at','chats.mensaje', 'chats.quien_recibe')
+            ->where([['chats.quien_recibe','=',auth()->id()],['chats.quien_envia','=',$uno->usuario]])
+            ->orWhere([['chats.quien_envia','=',auth()->id()],['chats.quien_recibe','=',$uno->usuario]])
+            ->orderBy('chats.created_at')
+            ->get();
+            $loschats[]=
+             [
+                 "id"=>$uno->usuario,
+                 "foto"=>$uno->foto,
+                 "nombre"=>$uno->nombre,
+                 "ultimo_chat"=>$sms->last()->mensaje,
+                 "ultimo_time"=>$sms->last()->created_at,
+                 "ultimo_id"=>$sms->last()->id,
+                 "todos"=>$sms
+             ]
+            ;
+
+        }
+
         return Inertia::render("Chat/Index", [
-            "quien_me_escribe"=>$enviadores,
-            "chat" => Chat::join("users",'users.id','=','chats.quien_envia')
-                ->where(function ($query, $primer_enviador) {
-                    $query->where('chats.quien_recibe','=',auth()->id())
-                    ->and('chats.quien_envia',$primer_enviador);
-                })
-                ,
+            "chats" =>$loschats
         ]);
 
     }

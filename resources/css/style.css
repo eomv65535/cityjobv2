@@ -6644,12 +6644,12 @@ span.megusta-icon {
 }
 
 .megusta-icon:hover {
-   
+
     color: #666;
 }
 
 .megusta-icon.bookmarked {
-    
+
     color: #333;
 }
 
@@ -6803,7 +6803,7 @@ span.bookmark-icon {
     color: #fff;
 }
 .bookmark-button.bookmarked .megusta-icon:before {
-    content: "\e9f2";   
+    content: "\e9f2";
 }
 
 
@@ -15736,7 +15736,7 @@ text-overflow: ellipsis; */
 ----------------------------------------------------------------- */
 
 
-/* Boxed List for Single Page 
+/* Boxed List for Single Page
 ------------------------------------- */
 
 .boxed-list {
@@ -15899,7 +15899,7 @@ screen and (-ms-high-contrast: none) {
 }
 
 
-/* Bid 
+/* Bid
 ------------------------------------- */
 
 .bid {
@@ -17591,7 +17591,7 @@ ul.dashboard-box-list>li:hover {
 }
 
 
-/* Dashbaord Media Queries 
+/* Dashbaord Media Queries
 ------------------------------------- */
 
 @media (min-width: 1365px) and (max-width: 1600px) {

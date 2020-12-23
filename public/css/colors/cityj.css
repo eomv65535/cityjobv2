@@ -446,3 +446,9 @@ a.apply-now-button:hover {
     border-color: #d72630;
     box-shadow: inset 0 0 0 4px #d72630;
 }
+.tiempo
+{
+    text-align: right;
+    display: block;
+    font-size: 11px;
+}

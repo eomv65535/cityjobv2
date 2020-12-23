@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 
 class TopeController extends Controller
 {
@@ -12,6 +13,7 @@ class TopeController extends Controller
 
     public function notificaciones() {
 
+     // validar que ha verificado el correo
         $notificaciones=new NotifyController();
         $objetonoti=$notificaciones->notificaciones_ultimos(5);
 

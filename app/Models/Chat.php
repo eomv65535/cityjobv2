@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Chat extends Model
 {
     use HasFactory;
-    
+
 	protected $table = 'chats';
 
 	protected $casts = [
@@ -19,7 +19,8 @@ class Chat extends Model
 	protected $fillable = [
 		'quien_envia',
 		'quien_recibe',
-		'mensaje'
+        'mensaje',
+        'estatus'
 	];
 
 	public function userrecibe()

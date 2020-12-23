@@ -1,5 +1,5 @@
 <template>
-  <span class="color">{{ diffForHumans }}</span>
+  <span :class="clase">{{ diffForHumans }}</span>
 </template>
 
 <script>
@@ -24,6 +24,10 @@ export default {
       type: String,
       required: true,
     },
+    clase:{
+        type:String,
+        default:"",
+    }
   },
   data() {
     return {

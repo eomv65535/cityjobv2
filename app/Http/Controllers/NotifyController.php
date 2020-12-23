@@ -12,9 +12,9 @@ class NotifyController extends Controller
     public function index() {
         return Inertia::render("Notis/Index", [
             "notificaciones" => Notify::join("users",'users.id','=','notifies.quien_recibe')
+            ->select('icono','mensaje','notifies.created_at','notifies.id')
             ->where([['notifies.quien_recibe','=',auth()->id()],['estatus',0]])
-            ->orderByDesc('notificaciones.created_at')
-            ,
+            ->orderByDesc('notifies.created_at')->get()
         ]);
 
     }
@@ -25,7 +25,7 @@ class NotifyController extends Controller
         $notificacion = Notify::findOrFail(request()->notificacion);
         $notificacion->estatus=1;
         $notificacion->save();
-      
+
     }
 
     public function notificaciones_ultimos($cuantos) {

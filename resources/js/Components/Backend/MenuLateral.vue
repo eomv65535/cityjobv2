@@ -18,26 +18,24 @@
             <ul data-submenu-title="Inicio">
               <li :class="{ active: cualactivo == 1 }">
                 <a :href="route('dashboard')"
-                  ><i class="icon-material-outline-dashboard"></i>
-                  Panel</a
+                  ><i class="icon-material-outline-dashboard"></i> Panel</a
                 >
               </li>
               <li :class="{ active: cualactivo == 2 }">
                 <a :href="route('chat.index')"
                   ><i class="icon-material-outline-question-answer"></i>
-                  Mensajes <span class="nav-tag">{{totalsms}}</span></a
+                  Mensajes <span class="nav-tag">{{ totalsms }}</span></a
                 >
               </li>
               <li :class="{ active: cualactivo == 3 }">
                 <a :href="route('notificaciones.index')"
                   ><i class="icon-feather-bell"></i> Notificaciones
-                  <span class="nav-tag">{{totalnotis}}</span></a
+                  <span class="nav-tag">{{ totalnotis }}</span></a
                 >
               </li>
               <li :class="{ active: cualactivo == 4 }">
                 <a :href="route('calendaruser.index')"
-                  ><i class="icon-feather-calendar"></i>
-                  Calendario</a
+                  ><i class="icon-feather-calendar"></i> Calendario</a
                 >
               </li>
             </ul>
@@ -139,6 +137,7 @@ export default {
       lisubmenu: null,
       totalsms: null,
       totalnotis: null,
+      timer: "",
     };
   },
   mounted() {
@@ -148,11 +147,19 @@ export default {
         this.lisubmenu = "";
         break;
     }
-
-    axios.get("/contadores-left").then((response) => {
-      this.totalsms = response.data.totalsmsl;
-      this.totalnotis = response.data.totalnostisl;
-    });
+    this.traelo();
+    this.timer = setInterval(this.traelo, 35000);
+  },
+  methods: {
+    traelo() {
+      axios.get("/contadores-left").then((response) => {
+        this.totalsms = response.data.totalsmsl;
+        this.totalnotis = response.data.totalnostisl;
+      });
+    },
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
 };
 </script>

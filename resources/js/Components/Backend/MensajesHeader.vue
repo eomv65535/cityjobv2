@@ -28,7 +28,7 @@
                   <strong>{{ mensaje.name }}</strong>
                   <p class="notificacion-msg-text">{{ mensaje.mensaje }}</p>
                   <humano-vue
-                    :date=mensaje.created_at
+                    :date=mensaje.created_at :clase="color"
                   />
                 </div>
               </a>
@@ -60,7 +60,9 @@ export default {
     objetosms: Object,
   },
   data() {
-    return {};
+    return {
+        color:"color"
+    };
   },
 };
 </script>

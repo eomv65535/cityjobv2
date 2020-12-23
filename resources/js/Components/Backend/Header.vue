@@ -101,8 +101,7 @@
                 <ul class="user-menu-small-nav">
                   <li>
                     <a href="/dashboard"
-                      ><i class="icon-material-outline-settings"></i>
-                      Panel</a
+                      ><i class="icon-material-outline-settings"></i> Panel</a
                     >
                   </li>
                   <li>
@@ -150,17 +149,23 @@ export default {
   props: {
     invitado: Boolean,
     user: Object,
-
   },
   data() {
     return {
       loguitoimg: image1,
       objetonoti: {},
       objetosms: {},
+      timer: "",
     };
   },
   mounted() {
-    if (!this.invitado) {
+    if (!this.invitado && this.user.email_verified_at !== null) {
+        this.traelo();
+      this.timer = setInterval(this.traelo, 35000);
+    }
+  },
+  methods: {
+    traelo() {
       axios
         .get("/tope-notificaciones")
         .then((response) => (this.objetonoti = response.data));
@@ -168,9 +173,7 @@ export default {
       axios
         .get("/tope-mensajes")
         .then((response) => (this.objetosms = response.data));
-    }
-  },
-  methods: {
+    },
     logout() {
       axios.post("/logout").then((response) => {
         window.location.reload();
@@ -226,6 +229,9 @@ export default {
           });
         });
     },
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
 };
 </script>

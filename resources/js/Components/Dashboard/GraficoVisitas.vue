@@ -8,7 +8,7 @@
       <div class="content">
         <!-- Chart -->
         <div class="chart">
-          <canvas id="chart" width="100" height="45"></canvas>
+          <line-chart :chartdata="chartData" :options="chartOptions" />
         </div>
       </div>
     </div>
@@ -17,7 +17,25 @@
 </template>
 
 <script>
-export default {};
+import Line from "vue-chartjs";
+
+export default {
+  extends: Line,
+  props: {
+    objetodash: Object,
+  },
+  data: () => ({
+    loaded: false,
+    chartdata: null,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  }),
+  mounted() {
+    this.chartdata = objetodash.visitas;
+  },
+};
 </script>
 
 <style>

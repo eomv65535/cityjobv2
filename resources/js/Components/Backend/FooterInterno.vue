@@ -1,4 +1,5 @@
 <template>
+
   <div class="small-footer margin-top-15">
     <div class="small-footer-copyrights">
       © 2020 <strong>CityJob</strong>. All Rights Reserved. Powered by
