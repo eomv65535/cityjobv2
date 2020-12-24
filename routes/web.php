@@ -11,6 +11,7 @@ use App\Http\Controllers\NotifyController;
 use App\Http\Controllers\OfertaCandidatoController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\OfertaFavoritaController;
+use App\Http\Controllers\ParaindexController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PlanActivoController;
 use App\Http\Controllers\PlanController;
@@ -25,14 +26,7 @@ use App\Http\Controllers\VisitaUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/", function () {
-    $invitado=false;
-    if(Auth::guest())
-        $invitado=true;
-        return Inertia\Inertia::render('Inicio',[
-            'invitados'=>$invitado
-        ]);
-    })->name("inicio");
+Route::get("/", [ParaindexController::class,'index'])->name("inicio");
 
 
 Route::group(["middleware" => ['auth:sanctum', 'verified']], function () {
@@ -47,16 +41,19 @@ Route::group(["middleware" => ['auth:sanctum', 'verified']], function () {
 
     Route::put('/autolinea',[UserLineaController::class,'autolinea']);
     Route::put('/quitalinea',[UserLineaController::class,'quitalinea']);
-    Route::put('/notileido/{notificacion}',[NotifyController::class,'leido']);
+    Route::post('/notileido/{notificacion}',[NotifyController::class,'leido']);
 
     Route::get('/tope-notificaciones',[TopeController::class,'notificaciones']);
     Route::get('/tope-mensajes',[TopeController::class,'mensajes']);
     Route::get('/contadores-left',[TopeController::class,'contadoresleft']);
 
+    Route::get('/profesionales-destacados',[ParaindexController::class,'profdestacados']);
+
     Route::resource("calendaruser", CalendarUserController::class)->except(["show"]);
     Route::resource("categorias", CategoriaController::class)->except(["show"]);
     Route::resource("categoriasusuarios", CategoriasUserController::class)->except(["show"]);
     Route::resource("chat", ChatController::class)->except(["show"]);
+    Route::patch('chat/leido/{quien_envia}',[ChatController::class,'leido'])->name('chat.leidos');
     Route::resource("especialidades", EspecialidadController::class)->except(["show"]);
     Route::resource("notificaciones", NotifyController::class)->except(["show"]);
 

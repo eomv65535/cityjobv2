@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->text('profile_photo_path')->nullable();
+            $table->text('profile_photo_path')->nullable()->default('user-avatar-placeholder.png');
             $table->integer('enlinea')->default(1);
             $table->integer('primeravez')->default(0);
             $table->integer('tipoini');

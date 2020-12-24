@@ -50,7 +50,7 @@ class ChatController extends Controller
 
         $mensajes= Chat::join("users",'users.id','=','chats.quien_envia')
         ->select('users.name','users.profile_photo_path','users.enlinea','mensaje','chats.created_at')
-        ->where('chats.quien_recibe','=',auth()->id())
+        ->where([['chats.quien_recibe','=',auth()->id()],['estatus',0]])
         ->orderByDesc('chats.created_at')
         ->limit($cuantos)->get();
         return [
@@ -61,34 +61,16 @@ class ChatController extends Controller
     }
 
 
-
-    public function chatuno(){
-        return Inertia::render("Chat/Uno", [
-            "chat" => Chat::join("users",'users.id','=','chats.quien_envia')
-                ->where(function ($query, $primer_enviador) {
-                    $query->where('chats.quien_recibe','=',auth()->id())
-                    ->and('chats.quien_envia',request()->only("quien_envia"));
-                })
-                ,
-        ]);
+    public function leido(Request $request){
+        $chatis = Chat::where([['quien_recibe','=',auth()->id()],['quien_envia',$request->quien_envia],['estatus',0]])->get();
+        foreach($chatis as $unchat)
+         {
+             $unchat->estatus=1;
+             $unchat->save();
+         }
+         return redirect()->route('chat.index')->with('success', 'Leidos!');
     }
 
-    public function ultimos() {
-
-        return Inertia::render("Chat/Ultimos", [
-            "chat" => Chat::join("users",'users.id','=','chats.quien_envia')
-            ->where('chats.quien_recibe','=',auth()->id())
-            ->orderBy('chats.quien_envia')
-            ->orderByDesc('chats.created_at')
-            ->limit(5)
-            ,
-        ]);
-    }
-
-
-    public function create() {
-        return Inertia::render("Chat/Create");
-    }
 
     public function store() {
         Chat::create(

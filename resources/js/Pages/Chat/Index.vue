@@ -25,7 +25,11 @@
                   </div>
 
                   <ul>
-                    <li v-for="(chat, index) in chats" v-bind:key="chat.id"  :class="{ 'active-message': index == cuales }">
+                    <li
+                      v-for="(chat, index) in chats"
+                      v-bind:key="chat.id"
+                      :class="{ 'active-message': index == cuales }"
+                    >
                       <a href="#" @click="muestra_detalle(index)">
                         <div class="message-avatar">
                           <i class="status-icon status-online"></i
@@ -98,8 +102,10 @@ export default {
       lossms: null,
       elnombre: "",
       id_otro: 0,
-      cuales:0,
-
+      cuales: 0,
+      form: {
+        quien_envia: 0,
+      },
     };
   },
   methods: {
@@ -107,25 +113,30 @@ export default {
       this.lossms = this.chats[indice].todos;
       this.elnombre = this.chats[indice].nombre;
       this.id_otro = this.chats[indice].id;
-      this.cuales=indice;
-
+      this.cuales = indice;
+      this.actualiza_leido(this.id_otro);
     },
-    enviachat(objeto){
-
-        this.$inertia.post(this.route("chat.store"), objeto.form).then(() => {
-            this.muestra_detalle(objeto.cual);
-            objeto.form.mensaje=""
-        });
-    }
+    actualiza_leido(cualid) {
+      this.form.quien_envia = cualid;
+      this.$inertia
+        .patch(this.route("chat.leidos", this.form.quien_envia))
+        .then(() => {});
+    },
+    enviachat(objeto) {
+      this.$inertia.post(this.route("chat.store"), objeto.form).then(() => {
+        this.muestra_detalle(objeto.cual);
+        objeto.form.mensaje = "";
+      });
+    },
   },
   mounted() {
     if (this.chats !== null) {
       this.lossms = this.chats[0].todos;
       this.elnombre = this.chats[0].nombre;
       this.id_otro = this.chats[0].id;
+      this.actualiza_leido(this.id_otro);
     }
   },
-
 };
 </script>
 

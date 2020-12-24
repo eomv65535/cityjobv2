@@ -29,7 +29,7 @@
     <!-- Reply Area -->
     <div class="message-reply">
       <textarea
-      maxlength="1000"
+        maxlength="1000"
         cols="1"
         rows="1"
         placeholder="Mensaje"
@@ -66,14 +66,14 @@ export default {
   },
   mounted() {
     var objDiv = document.getElementById("contenidos");
-    objDiv.scrollTop = 50000;
+    objDiv.scrollTop = objDiv.scrollHeight;
   },
   methods: {
     envia_sms() {
       this.form.quien_recibe = this.id_otro;
       this.$emit("enviachat", { form: this.form, cual: this.cuales });
       var objDiv = document.getElementById("contenidos");
-    objDiv.scrollTop = 50000;
+      objDiv.scrollTop = 50000;
     },
   },
 };

@@ -22,7 +22,7 @@ class CreateChatsTable extends Migration
             $table->foreign('quien_recibe')->references('id')->on('users');
 
             $table->longText('mensaje');
-            
+            $table->integer('estatus')->default(0);
             $table->timestamps();
         });
     }

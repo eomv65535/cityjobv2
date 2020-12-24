@@ -160,7 +160,7 @@ export default {
   },
   mounted() {
     if (!this.invitado && this.user.email_verified_at !== null) {
-        this.traelo();
+      this.traelo();
       this.timer = setInterval(this.traelo, 35000);
     }
   },
