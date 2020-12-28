@@ -11,9 +11,9 @@ class ChatController extends Controller
 {
     public function index() {
         $usuarios=Chat::join("users",'users.id','=','chats.quien_envia')
-        ->select('chats.quien_envia as usuario','users.name as nombre' ,'users.profile_photo_path as foto','users.enlinea as linea')
+        ->select('chats.quien_envia as usuario','users.name as nombre' ,'users.profile_photo_path as foto','users.enlinea as linea','chats.created_at')
         ->where('chats.quien_recibe','=',auth()->id())
-        ->groupBy('chats.quien_envia','users.name','users.profile_photo_path','users.enlinea')
+        ->groupBy('chats.quien_envia','users.name','users.profile_photo_path','users.enlinea','chats.created_at')
         ->orderByDesc('chats.created_at')
         ->orderBy('chats.quien_envia')->get();
 
